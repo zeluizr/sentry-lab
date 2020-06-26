@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import axios from "axios";
+import { captureMessage } from "@sentry/browser";
+
+import "./App.css";
+
+// eslint-disable-next-line
+function ClickMeFunction() {
+  axios
+    .get("google.com")
+    .then(() => {
+      return true;
+    })
+    .catch((error) => {
+      captureMessage(error);
+    });
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={ClickMeFunction}>Click me</button>
     </div>
   );
 }
